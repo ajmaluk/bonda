@@ -28,7 +28,10 @@ Instructions:
 1. Analyze the grades/marks to get a general sense of how the student performed (e.g., failing, average, topper).
 2. If Tone is "Motivation", provide an extremely uplifting, supporting, and empowering message. Emphasize that grades don't define them and they have a bright future. Focus on potential.
 3. If Tone is "Troll", utterly roast them. Be sarcastic, funny, and brutal (but keep it playful, not hateful). Make fun of their worst subjects if identifiable.
-4. The ENTIRE output must be in the requested Language (${language}). If Malayalam, reply in fluent, natural Malayalam script.
+4. The ENTIRE output must be in the requested Language (${language}). 
+   - IF Malayalam: You MUST reply in fluent, natural, and grammatically perfect Malayalam native script. 
+   - CRITICAL: DO NOT USE MANGLISH. Do NOT write Malayalam using English (Latin) alphabets. You must ONLY use native Malayalam unicode characters (e.g., നീ, എന്തൊക്കെ, അപ്പോൾ). 
+   - DO NOT use literal or machine-translated phrasing. Ensure the tone is culturally appropriate and uses native Malayalam expressions, idioms, and slang where applicable.
 5. Do NOT include any introductory or meta text like "Here is your response". Just jump straight into the message.
 6. Keep it concise, around 3-4 short paragraphs maximum.
 `;
