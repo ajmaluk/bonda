@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { UploadCloud, Trash2, FileText } from 'lucide-react';
 import './FileUpload.css';
 
@@ -10,7 +10,17 @@ interface FileUploadProps {
 
 export function FileUpload({ file, onFileSelect, disabled }: FileUploadProps) {
   const [isDragActive, setIsDragActive] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (file && file.type !== 'application/pdf') {
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+      return () => URL.revokeObjectURL(url);
+    }
+    setPreviewUrl(null);
+  }, [file]);
 
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault();
@@ -58,7 +68,7 @@ export function FileUpload({ file, onFileSelect, disabled }: FileUploadProps) {
             {isPdf ? (
               <FileText className="file-icon pdf" />
             ) : (
-              <img src={URL.createObjectURL(file)} alt="preview" className="file-preview-img" />
+              <img src={previewUrl || ''} alt="preview" className="file-preview-img" />
             )}
           </div>
           <div className="file-details">

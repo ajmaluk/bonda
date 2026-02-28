@@ -54,7 +54,10 @@ async function extractTextFromPDF(file: File, onProgress?: (msg: string) => void
         for (let i = 1; i <= numPages; i++) {
             const page = await pdf.getPage(i);
             const textContent = await page.getTextContent();
-            const pageText = textContent.items.map((item: any) => 'str' in item ? item.str : '').join(' ');
+            const pageText = textContent.items.map((item: unknown) => {
+                const textItem = item as { str?: string };
+                return textItem && 'str' in textItem && textItem.str ? textItem.str : '';
+            }).join(' ');
             fullText += pageText + '\n';
         }
 

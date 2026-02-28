@@ -58,7 +58,7 @@ Instructions:
         } else {
             throw new Error("API failed to generate text.");
         }
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("AI Generation Error:", error);
         throw new Error("Failed to connect to the AI service. Please try again later.");
     }

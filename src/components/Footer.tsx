@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import bondaIcon from '../assets/icon.png';
 import './Footer.css';
 
 export function Footer() {
@@ -6,7 +7,10 @@ export function Footer() {
         <footer className="footer-container">
             <div className="footer-content">
                 <div className="footer-company-info">
-                    <h3>Bonda</h3>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+                        <img src={bondaIcon} alt="Bonda Icon" style={{ width: '28px', height: '28px', filter: 'drop-shadow(0 0 5px rgba(217, 119, 6, 0.4))' }} />
+                        <h3 style={{ margin: 0 }}>Bonda</h3>
+                    </div>
                     <p>We build fast, uncompromising software. Bonda is your ultimate AI marksheet feedback tool, created by Uthakkan.</p>
                     <p className="founder-credit">Founded by Ajmal U K in 2025</p>
                 </div>

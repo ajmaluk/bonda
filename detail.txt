@@ -1,0 +1,39 @@
+=========================================
+      BONDA WEBSITE DETAILS
+=========================================
+
+🌐 General Information
+-----------------------------------------
+- Primary URL: https://bonda.toolpix.in
+- Project Name: marksheet-ai
+- Site Title: Bonda - AI Marksheet Roast & Motivation
+- Description: Upload your marksheet for a brutal AI roast or instant motivation in Malayalam and English. The ultimate student AI feedback tool by Uthakkan.
+- Keywords: bonda ai, marksheet roast, student motivation ai, malayalam ai roast, ai feedback, marksheet analyzer, kerala ai tools, uthakkan, ajmal u k, toolpix
+
+🏢 Organization & Contact
+-----------------------------------------
+- Company Name: Uthakkan
+- Company Website: https://www.uthakkan.in
+- Founder & Lead Engineer: Ajmal U K
+- Founded Year: 2025
+- Headquarters: Kannur, Kerala
+- Contact Email: contact.uthakkan@gmail.com
+
+🛠️ Tech Stack & Configuration
+-----------------------------------------
+- Framework: React 19 (via Vite)
+- Language: TypeScript
+- Styling: Custom CSS (Glassmorphism & Gradients)
+- Key Dependencies:
+  * react-router-dom (Routing)
+  * react-helmet-async (SEO)
+  * lucide-react (Icons)
+  * pdfjs-dist (Local PDF Parsing)
+  * tesseract.js (Local OCR parsing)
+
+📈 SEO & Search Console Integrations
+-----------------------------------------
+- Google Site Verification ID: 83f8616f6a5b1974
+- Sitemap Location: https://bonda.toolpix.in/sitemap.xml
+- Robots Rule: Index, Follow (max-image-preview:large)
+- Structured Data: JSON-LD (EducationalApplication)
