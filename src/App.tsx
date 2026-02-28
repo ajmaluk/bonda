@@ -10,32 +10,35 @@ import { NotFound } from './pages/NotFound';
 import { Footer } from './components/Footer';
 import { Navbar } from './components/Navbar';
 import { ScrollToTop } from './components/ScrollToTop';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import './App.css';
 
 function App() {
   return (
     <HelmetProvider>
-      <Router>
-        <div className="app-container">
-          {/* Background blobs for premium effect */}
-          <div className="bg-blob-1"></div>
-          <div className="bg-blob-2"></div>
+      <ErrorBoundary>
+        <Router>
+          <div className="app-container">
+            {/* Background blobs for premium effect */}
+            <div className="bg-blob-1"></div>
+            <div className="bg-blob-2"></div>
 
-          <ScrollToTop />
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-of-service" element={<TermsOfService />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+            <ScrollToTop />
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
 
-          <Footer />
-        </div>
-      </Router>
+            <Footer />
+          </div>
+        </Router>
+      </ErrorBoundary>
     </HelmetProvider>
   );
 }

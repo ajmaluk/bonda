@@ -8,6 +8,7 @@ export function PrivacyPolicy() {
         "name": "Privacy Policy - Bonda",
         "url": "https://bonda.toolpix.in/privacy-policy",
         "description": "Learn how Bonda handles your data securely via completely client-side processing.",
+        "significantLink": "https://bonda.toolpix.in",
         "publisher": {
             "@type": "Organization",
             "name": "Uthakkan",

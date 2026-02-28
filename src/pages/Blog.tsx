@@ -7,19 +7,29 @@ import './Page.css';
 export function Blog() {
     const blogListSchema = {
         "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        "name": "Bonda Blog",
-        "description": "Read our latest tips on academic success, how AI creates brutally honest roasts, and updates directly from the developers at Uthakkan.",
-        "url": "https://bonda.toolpix.in/blog",
-        "mainEntity": {
-            "@type": "ItemList",
-            "itemListElement": blogs.map((post, index) => ({
-                "@type": "ListItem",
-                "position": index + 1,
-                "url": `https://bonda.toolpix.in/blog/${post.slug}`,
-                "name": post.title
-            }))
-        }
+        "@type": "Blog",
+        "name": "Bonda Developer & Student Blog",
+        "description": "Official blog of Bonda by Uthakkan. Covering AI roasting technology, student motivation, and developer logs.",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Uthakkan",
+            "logo": "https://bonda.toolpix.in/logo.png"
+        },
+        "mainEntityOfPage": {
+            "@type": "CollectionPage",
+            "@id": "https://bonda.toolpix.in/blog",
+            "name": "Bonda Blog Collection"
+        },
+        "blogPost": blogs.map((post) => ({
+            "@type": "BlogPosting",
+            "headline": post.title,
+            "url": `https://bonda.toolpix.in/blog/${post.slug}`,
+            "datePublished": post.date,
+            "author": {
+                "@type": "Person",
+                "name": post.author
+            }
+        }))
     };
 
     const [searchParams, setSearchParams] = useSearchParams();

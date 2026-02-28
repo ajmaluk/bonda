@@ -48,6 +48,11 @@
   /* Bouncy spring */
 }
 
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -70,6 +75,25 @@ body {
 }
 
 /* Base utility classes for premium look */
+/* Semantic A11y Utils */
+fieldset.selector-container {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .glass-panel {
   background: var(--bg-card);
   backdrop-filter: var(--glass-blur);

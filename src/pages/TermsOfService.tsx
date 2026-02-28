@@ -8,6 +8,7 @@ export function TermsOfService() {
         "name": "Terms of Service - Bonda",
         "url": "https://bonda.toolpix.in/terms-of-service",
         "description": "Read the terms and conditions for using the Bonda application.",
+        "significantLink": "https://bonda.toolpix.in",
         "publisher": {
             "@type": "Organization",
             "name": "Uthakkan",

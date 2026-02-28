@@ -80,16 +80,16 @@ export function FileUpload({ file, onFileSelect, disabled }: FileUploadProps) {
   if (file) {
     const isPdf = file.type === 'application/pdf';
     return (
-      <div className="file-preview glass-panel animate-fade-in">
+      <div className="file-preview glass-panel animate-fade-in" role="region" aria-label="File preview">
         <div className="file-info">
           <div className="file-icon-bg">
             {isPdf ? (
-              <FileText className="file-icon pdf" />
+              <FileText className="file-icon pdf" aria-hidden="true" />
             ) : (
-              <img src={previewUrl || ''} alt="preview" className="file-preview-img" />
+              <img src={previewUrl || ''} alt="" className="file-preview-img" />
             )}
           </div>
-          <div className="file-details">
+          <div className="file-details" aria-live="polite">
             <span className="file-name">{file.name}</span>
             <span className="file-size">{(file.size / (1024 * 1024)).toFixed(2)} MB</span>
           </div>
@@ -97,52 +97,58 @@ export function FileUpload({ file, onFileSelect, disabled }: FileUploadProps) {
         <button
           onClick={() => onFileSelect(null)}
           className="remove-btn"
-          aria-label="Remove file"
+          aria-label={`Remove ${file.name}`}
           disabled={disabled}
         >
-          <Trash2 size={18} />
+          <Trash2 size={18} aria-hidden="true" />
         </button>
       </div>
     );
   }
 
-  <div className="upload-container w-full">
-    <div
-      className={`upload-zone glass-panel ${isDragActive ? 'drag-active' : ''} ${disabled ? 'disabled' : ''} ${error ? 'has-error' : ''}`}
-      onDragEnter={handleDrag}
-      onDragLeave={handleDrag}
-      onDragOver={handleDrag}
-      onDrop={handleDrop}
-      onClick={() => !disabled && inputRef.current?.click()}
-      onKeyDown={handleKeyDown}
-      tabIndex={disabled ? -1 : 0}
-      role="button"
-      aria-label="Upload marksheet"
-      aria-disabled={disabled}
-    >
-      <input
-        ref={inputRef}
-        type="file"
-        accept=".jpg,.jpeg,.png,.webp,.pdf"
-        onChange={handleChange}
-        style={{ display: 'none' }}
-        disabled={disabled}
-      />
+  return (
+    <div className="upload-container w-full">
+      <div
+        className={`upload-zone glass-panel ${isDragActive ? 'drag-active' : ''} ${disabled ? 'disabled' : ''} ${error ? 'has-error' : ''}`}
+        onDragEnter={handleDrag}
+        onDragLeave={handleDrag}
+        onDragOver={handleDrag}
+        onDrop={handleDrop}
+        onClick={() => !disabled && inputRef.current?.click()}
+        onKeyDown={handleKeyDown}
+        tabIndex={disabled ? -1 : 0}
+        role="button"
+        aria-label="Upload marksheet"
+        aria-disabled={disabled}
+        aria-describedby={error ? "upload-error" : undefined}
+      >
+        <input
+          ref={inputRef}
+          type="file"
+          id="marksheet-upload"
+          accept=".jpg,.jpeg,.png,.webp,.pdf"
+          onChange={handleChange}
+          style={{ display: 'none' }}
+          disabled={disabled}
+        />
 
-      <div className="upload-content">
-        <div className="upload-icon-wrapper">
-          <UploadCloud className="upload-cloud-icon" />
+        <div className="upload-content">
+          <div className="upload-icon-wrapper">
+            <UploadCloud className="upload-cloud-icon" aria-hidden="true" />
+          </div>
+          <h3>Drop your marksheet here</h3>
+          <p>Supports Image (JPG, PNG) or PDF formats</p>
+          <span className="upload-btn-fake">Browse Files</span>
         </div>
-        <h3>Drop your marksheet here</h3>
-        <p>Supports Image (JPG, PNG) or PDF formats</p>
-        <span className="upload-btn-fake">Browse Files</span>
+      </div>
+
+      <div id="upload-error" aria-live="assertive">
+        {error && (
+          <div className="upload-error-msg animate-fade-in" role="alert">
+            {error}
+          </div>
+        )}
       </div>
     </div>
-
-    {error && (
-      <div className="upload-error-msg animate-fade-in" role="alert">
-        {error}
-      </div>
-    )}
-  </div>
+  );
 }

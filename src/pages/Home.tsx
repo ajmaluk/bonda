@@ -10,94 +10,158 @@ import { ResultCard } from '../components/ResultCard';
 import { extractTextFromFile } from '../services/ocr';
 import { generateFeedback } from '../services/api';
 
-export function Home() {
-    const homeSchema = [
-        {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "Bonda",
-            "url": "https://bonda.toolpix.in",
-            "potentialAction": {
-                "@type": "SearchAction",
-                "target": "https://bonda.toolpix.in/blog?q={search_term_string}",
-                "query-input": "required name=search_term_string"
-            }
-        },
-        {
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": "Bonda - AI Marksheet Roast & Motivation",
-            "url": "https://bonda.toolpix.in",
-            "applicationCategory": "EducationalApplication",
-            "operatingSystem": "All",
-            "description": "Upload your marksheet for a brutal AI roast or instant motivation in Malayalam and English."
-        },
-        {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "Uthakkan",
-            "alternateName": "Bonda by Uthakkan",
-            "url": "https://www.uthakkan.in",
-            "logo": "https://bonda.toolpix.in/logo.png",
-            "description": "A software organization focused on building fast, uncompromising digital tools.",
-            "foundingDate": "2025",
-            "foundingLocation": {
-                "@type": "Place",
-                "name": "Kannur, Kerala, India"
-            },
-            "founder": {
-                "@type": "Person",
-                "name": "Ajmal U K",
-                "jobTitle": "Founder & Lead Engineer"
-            },
-            "contactPoint": {
-                "@type": "ContactPoint",
-                "email": "contact.uthakkan@gmail.com",
-                "contactType": "customer support"
-            },
-            "sameAs": [
-                "https://github.com/ajmaluk",
-                "https://linkedin.com/in/ajmal-u-k-1a93b2241",
-                "https://x.com/uthakkan"
-            ],
-            "brand": {
-                "@type": "Brand",
-                "name": "Bonda",
-                "logo": "https://bonda.toolpix.in/icon.png"
-            }
-        },
-        {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-                {
-                    "@type": "Question",
-                    "name": "Is my marksheet data safe on Bonda?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Yes. Bonda uses advanced client-side OCR technology. This means your marksheet is processed entirely within your own browser and is never uploaded or stored on our servers."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "How accurate is the AI marksheet roast?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Bonda uses Google Gemini's latest LLM technology to analyze your grades with high precision, providing culturally relevant feedback in both Malayalam and English."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Does Bonda support PDF marksheets?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Yes, Bonda supports both image formats (JPG, PNG, WebP) and PDF documents. Our system extracts text from all popular marksheet formats."
-                    }
-                }
-            ]
+const HOME_SCHEMA = [
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Bonda",
+        "url": "https://bonda.toolpix.in",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://bonda.toolpix.in/blog?q={search_term_string}",
+            "query-input": "required name=search_term_string"
         }
-    ];
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Bonda - AI Marksheet Roast & Motivation",
+        "url": "https://bonda.toolpix.in",
+        "applicationCategory": "EducationalApplication",
+        "applicationSubCategory": "AI Feedback Tool",
+        "operatingSystem": "All",
+        "description": "Upload your marksheet for a brutal AI roast or instant motivation in Malayalam and English. Advanced client-side OCR and localized Gemini AI analysis.",
+        "featureList": "Client-side OCR, Privacy-first analysis, Malayalam script support, AI Roasting, Educational Motivation",
+        "isAccessibleForFree": true,
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "INR"
+        }
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Bonda AI Marksheet Analyzer",
+        "description": "A premium AI tool for analyzing student marksheets and providing culturally relevant feedback in Malayalam.",
+        "brand": {
+            "@type": "Brand",
+            "name": "Bonda"
+        },
+        "offers": {
+            "@type": "Offer",
+            "url": "https://bonda.toolpix.in",
+            "price": "0",
+            "priceCurrency": "INR",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition"
+        }
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to get an AI Marksheet Roast",
+        "description": "Get a brutal AI roast or instant motivation for your academic results in 3 easy steps.",
+        "step": [
+            {
+                "@type": "HowToStep",
+                "name": "Upload Marksheet",
+                "text": "Upload your marksheet as an image (JPG, PNG) or PDF. Processing is 100% local.",
+                "url": "https://bonda.toolpix.in/#upload"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Select Tone & Language",
+                "text": "Choose 'Troll' for a roast or 'Motivation' for support, and select Malayalam or English.",
+                "url": "https://bonda.toolpix.in/#options"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Get AI Feedback",
+                "text": "Click 'Analyze Marksheet' to receive your personalized, culturally aware AI feedback.",
+                "url": "https://bonda.toolpix.in/#result"
+            }
+        ],
+        "totalTime": "PT1M"
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Uthakkan",
+        "alternateName": "Bonda by Uthakkan",
+        "url": "https://uthakkan.in/",
+        "logo": "https://bonda.toolpix.in/logo.png",
+        "description": "A software organization focused on building fast, uncompromising digital tools, SaaS products, and premium AI implementations.",
+        "foundingDate": "2025",
+        "foundingLocation": {
+            "@type": "Place",
+            "name": "Kannur, Kerala, India"
+        },
+        "founder": {
+            "@type": "Person",
+            "name": "Muhammed Ajmal U K",
+            "alternateName": "Ajmal U K",
+            "jobTitle": "Founder & Lead Engineer",
+            "image": "https://bonda.toolpix.in/images/team/ajmal.jpg"
+        },
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Professional Software Services",
+            "itemListElement": [
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Web & SaaS Development" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mobile App Development" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Professional Video & Graphic Design" } }
+            ]
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "contact.uthakkan@gmail.com",
+            "contactType": "customer support"
+        },
+        "sameAs": [
+            "https://github.com/ajmaluk",
+            "https://linkedin.com/in/ajmal-u-k-1a93b2241",
+            "https://x.com/uthakkan"
+        ],
+        "brand": {
+            "@type": "Brand",
+            "name": "Bonda",
+            "logo": "https://bonda.toolpix.in/icon.png"
+        }
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Is my marksheet data safe on Bonda?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Bonda uses advanced client-side OCR technology. This means your marksheet is processed entirely within your own browser and is never uploaded or stored on our servers."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How accurate is the AI marksheet roast?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Bonda uses Google Gemini's latest LLM technology to analyze your grades with high precision, providing culturally relevant feedback in both Malayalam and English."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does Bonda support PDF marksheets?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, Bonda supports both image formats (JPG, PNG, WebP) and PDF documents. Our system extracts text from all popular marksheet formats."
+                }
+            }
+        ]
+    }
+];
 
+export function Home() {
     const [file, setFile] = useState<File | null>(null);
     const [tone, setTone] = useState<Tone>('Motivation');
     const [language, setLanguage] = useState<Language>('English');
@@ -146,7 +210,7 @@ export function Home() {
                 title="Bonda - AI Marksheet Roast & Motivation"
                 description="Upload your marksheet for a brutal AI roast or instant motivation in Malayalam and English. The ultimate student AI feedback tool by Uthakkan."
                 url="https://bonda.toolpix.in"
-                schema={homeSchema}
+                schema={HOME_SCHEMA}
             />
 
             <header className="header animate-fade-in" style={{ paddingBottom: '1rem' }}>

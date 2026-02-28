@@ -68,39 +68,43 @@ async function extractTextFromPDF(file: File, onProgress?: (msg: string) => void
             return fullText.trim();
         }
 
-        // Fallback to OCR if no text found in PDF (i.e. it's a scanned image)
-        onProgress?.('No digital text found. Scanning image (this may take a minute)...');
+        // fallback to OCR if no text found in PDF (i.e. it's a scanned image)
+        onProgress?.('No digital text found. Scanning page 1...');
 
-        // Get the first page
-        const page = await pdf.getPage(1);
-        const viewport = page.getViewport({ scale: 3.0 }); // higher scale (3.0) for elite OCR accuracy
+        // Function to OCR a specific page
+        const runOcrOnPage = async (pageNum: number) => {
+            const page = await pdf.getPage(pageNum);
+            const viewport = page.getViewport({ scale: 3.0 });
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
 
-        // Prepare canvas using DOM
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
+            await page.render({
+                canvasContext: context!,
+                viewport: viewport,
+                canvas: canvas
+            }).promise;
 
-        // Render PDF page into canvas context
-        const renderContext = {
-            canvasContext: context!,
-            viewport: viewport,
-            canvas: canvas
+            const blob = await new Promise<Blob | null>((resolve) => {
+                canvas.toBlob(resolve, 'image/jpeg', 0.95);
+            });
+
+            if (!blob) return '';
+            const imageFile = new File([blob], `page-${pageNum}.jpg`, { type: "image/jpeg" });
+            return extractTextFromImage(imageFile, p => onProgress?.(`Page ${pageNum}: ${p}`));
         };
 
-        await page.render(renderContext).promise;
+        const page1Text = await runOcrOnPage(1);
 
-        // Convert canvas to a blob
-        const blob = await new Promise<Blob | null>((resolve) => {
-            canvas.toBlob(resolve, 'image/jpeg', 0.95);
-        });
+        // If page 1 is very short, try page 2 if it exists
+        if (page1Text.trim().length < 50 && pdf.numPages >= 2) {
+            onProgress?.('Page 1 empty/short. Scanning page 2...');
+            const page2Text = await runOcrOnPage(2);
+            return page1Text + '\n' + page2Text;
+        }
 
-        if (!blob) throw new Error("Could not convert PDF page to image.");
-
-        // Convert blob to file so we can reuse the image extraction
-        const imageFile = new File([blob], "pdf-page-1.jpg", { type: "image/jpeg" });
-
-        return extractTextFromImage(imageFile, onProgress);
+        return page1Text;
 
     } catch (error) {
         console.error("OCR PDF Error:", error);

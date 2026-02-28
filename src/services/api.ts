@@ -9,8 +9,8 @@ export async function generateFeedback(
     language: Language
 ): Promise<string> {
 
-    if (!marksheetText || marksheetText.trim().length < 10) {
-        throw new Error("Could not detect enough text from the marksheet. Please upload a clearer image.");
+    if (!marksheetText || marksheetText.trim().length < 30) {
+        throw new Error("Could not detect enough text from the marksheet. Please ensure you upload a clear, well-lit document.");
     }
 
     const prompt = `
@@ -25,14 +25,19 @@ ${marksheetText}
 """
 
 ### CORE INSTRUCTIONS
-1. ANALYZE: Identify the student's status (Topper, Average, failing, or "Just Passed"). Detect specific subjects where they struggled or excelled.
-2. SCRIPT GUARDRAIL (CRITICAL): 
+0. RELEVANCE CHECK (CRITICAL):
+   - First, detect if the provided text looks like an academic marksheet, grade card, result page, or student-related document. 
+   - If the text is clearly UNRELATED (e.g., a random receipt, a landscape photo description, a casual chat, or nonsensical gibberish), DO NOT provide a roast or motivation. 
+   - Instead, politely explain in ${language} that you can only analyze academic marksheets and ask the user to upload a proper document. Use a culturally relevant "Bonda AI" personality for this rejection too.
+
+1. ANALYZE: If relevant, identify the student's status (Topper, Average, failing, or "Just Passed"). Detect specific subjects where they struggled or excelled.
+2. SCRIPT GUARDRAIL: 
    - If Language is Malayalam: Use ONLY native Malayalam Unicode script (നമസ്കാരം). 
-   - NEVER use Manglish (English letters for Malayalam). 
+   - NEVER use Manglish. 
    - Avoid robotic, formal translations. Use natural, spoken Malayalam phrasing.
 3. ENGAGEMENT & STYLE:
    - Use WhatsApp-style formatting: Use **bold** (via **text**) for emphasis. 
-   - Incorporate relevant emojis to increase emotional resonance.
+   - Incorporate relevant emojis.
    - Keep it concise: 3 short, punchy paragraphs max.
 
 ### TONE SPECIFICS
@@ -49,7 +54,7 @@ ${marksheetText}
 ### OUTPUT RULES
 - NO intro like "Here is your roast." Jump straight into the message.
 - If the OCR is totally unreadable: Politely ask for a better photo in ${language}.
-`;
+    `;
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second safety timeout
@@ -75,7 +80,7 @@ ${marksheetText}
             if (response.status >= 500) {
                 throw new Error("The AI service is currently overloaded. Please try again in a few minutes.");
             }
-            throw new Error(`AI Service Error (${response.status}). Please try again later.`);
+            throw new Error(`AI Service Error(${response.status}).Please try again later.`);
         }
 
         const data = await response.json();

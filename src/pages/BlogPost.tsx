@@ -30,7 +30,10 @@ export function BlogPost() {
                 "url": "https://bonda.toolpix.in/logo.png"
             }
         },
-        "datePublished": new Date(post.date).toISOString()
+        "datePublished": new Date(post.date).toISOString(),
+        "wordCount": post.content.split(/\s+/).length,
+        "articleSection": "Education & AI",
+        "keywords": post.tags?.join(", ")
     } : undefined;
 
     if (!post) {

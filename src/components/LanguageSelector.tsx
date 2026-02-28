@@ -11,28 +11,35 @@ interface LanguageSelectorProps {
 
 export function LanguageSelector({ selectedLanguage, onSelectLanguage, disabled }: LanguageSelectorProps) {
     return (
-        <div className="selector-container glass-panel">
-            <h3>Language</h3>
-            <div className="options-wrapper">
+        <fieldset className="selector-container glass-panel" disabled={disabled}>
+            <legend className="sr-only">Select Language</legend>
+            <h3 aria-hidden="true">Language</h3>
+            <div className="options-wrapper" role="radiogroup">
                 <button
+                    type="button"
                     className={`option-btn ${selectedLanguage === 'English' ? 'active blue' : ''} ${disabled ? 'disabled' : ''}`}
                     onClick={() => !disabled && onSelectLanguage('English')}
                     disabled={disabled}
-                    aria-pressed={selectedLanguage === 'English'}
+                    aria-checked={selectedLanguage === 'English'}
+                    role="radio"
+                    aria-label="Selection: English"
                 >
                     <Globe className="option-icon" aria-hidden="true" />
                     <span>English</span>
                 </button>
                 <button
+                    type="button"
                     className={`option-btn ${selectedLanguage === 'Malayalam' ? 'active blue' : ''} ${disabled ? 'disabled' : ''}`}
                     onClick={() => !disabled && onSelectLanguage('Malayalam')}
                     disabled={disabled}
-                    aria-pressed={selectedLanguage === 'Malayalam'}
+                    aria-checked={selectedLanguage === 'Malayalam'}
+                    role="radio"
+                    aria-label="Selection: Malayalam"
                 >
                     <Languages className="option-icon" aria-hidden="true" />
                     <span>Malayalam</span>
                 </button>
             </div>
-        </div>
+        </fieldset>
     );
 }

@@ -11,28 +11,35 @@ interface ToneSelectorProps {
 
 export function ToneSelector({ selectedTone, onSelectTone, disabled }: ToneSelectorProps) {
     return (
-        <div className="selector-container glass-panel">
-            <h3>Select Vibe</h3>
-            <div className="options-wrapper">
+        <fieldset className="selector-container glass-panel" disabled={disabled}>
+            <legend className="sr-only">Select Vibe</legend>
+            <h3 aria-hidden="true">Select Vibe</h3>
+            <div className="options-wrapper" role="radiogroup">
                 <button
+                    type="button"
                     className={`option-btn ${selectedTone === 'Motivation' ? 'active motivation' : ''} ${disabled ? 'disabled' : ''}`}
                     onClick={() => !disabled && onSelectTone('Motivation')}
                     disabled={disabled}
-                    aria-pressed={selectedTone === 'Motivation'}
+                    aria-checked={selectedTone === 'Motivation'}
+                    role="radio"
+                    aria-label="Selection: Motivation"
                 >
                     <Heart className="option-icon" aria-hidden="true" />
                     <span>Motivation</span>
                 </button>
                 <button
+                    type="button"
                     className={`option-btn ${selectedTone === 'Troll' ? 'active troll' : ''} ${disabled ? 'disabled' : ''}`}
                     onClick={() => !disabled && onSelectTone('Troll')}
                     disabled={disabled}
-                    aria-pressed={selectedTone === 'Troll'}
+                    aria-checked={selectedTone === 'Troll'}
+                    role="radio"
+                    aria-label="Selection: Brutal Roast"
                 >
                     <Flame className="option-icon" aria-hidden="true" />
                     <span>Brutal Roast</span>
                 </button>
             </div>
-        </div>
+        </fieldset>
     );
 }

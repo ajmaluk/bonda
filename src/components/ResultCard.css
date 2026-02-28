@@ -243,6 +243,27 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+/* Sparkle effect animation at the end of content */
+.result-body::after {
+    content: ' ✨';
+    animation: sparkle 2s infinite ease-in-out;
+    display: inline-block;
+}
+
+@keyframes sparkle {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 2px var(--accent-primary)) brightness(1);
+        transform: scale(1);
+    }
+
+    50% {
+        filter: drop-shadow(0 0 8px #fbbf24) brightness(1.4);
+        transform: scale(1.1);
+    }
+}
+
 .final-text {
     margin: 0;
     font-weight: 400;
