@@ -3,25 +3,31 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" href="/icon.png" fetchpriority="high" />
+  <link rel="apple-touch-icon" href="/icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Performance Preloading for Ranking (Core Web Vitals) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" />
+  <link rel="preload" as="image" href="/icon.png" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Primary Meta Tags -->
-  <title>Bonda - AI Marksheet Roast & Motivation</title>
+  <title>Bonda | AI Marksheet Roast & Motivation</title>
   <meta name="google-site-verification" content="83f8616f6a5b1974" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="theme-color" content="#051a11" />
   <meta name="title" content="Bonda - AI Marksheet Roast & Motivation" />
   <meta name="description"
-    content="Upload your marksheet for a brutal AI roast or instant motivation in Malayalam and English. The ultimate student AI feedback tool by Uthakkan." />
+    content="The ultimate student AI feedback tool. Upload your marksheet for a brutal Malayalam AI roast or instant motivation. Powered by Uthakkan." />
   <meta name="keywords"
     content="bonda ai, marksheet roast, student motivation ai, malayalam ai roast, ai feedback, marksheet analyzer, kerala ai tools, uthakkan, ajmal u k, toolpix" />
   <meta name="author" content="Ajmal U K, Uthakkan" />
-  <link rel="canonical" href="https://bonda.toolpix.in" />
+  <link rel="canonical" href="https://bonda.toolpix.in/" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
@@ -44,6 +50,25 @@
 
 <body>
   <div id="root"></div>
+  <noscript>
+    <div
+      style="max-width:800px;margin:2rem auto;padding:1rem;font-family:system-ui,sans-serif;color:#e0e0e0;background:#0a1f14;">
+      <h1>Bonda - AI Marksheet Roast &amp; Motivation</h1>
+      <p>Upload your marksheet for a brutal AI roast or instant motivation in Malayalam and English. The ultimate
+        student AI feedback tool by Uthakkan.</p>
+      <h2>Features</h2>
+      <ul>
+        <li><strong>Brutal AI Roasts</strong> - Get hilariously honest feedback on your grades</li>
+        <li><strong>Student Motivation</strong> - Encouraging, actionable AI feedback</li>
+        <li><strong>Malayalam Support</strong> - Native Malayalam script feedback</li>
+      </ul>
+      <nav>
+        <p><a href="/">Home</a> | <a href="/about">About Us</a> | <a href="/blog">Blog</a> | <a
+            href="/privacy-policy">Privacy Policy</a> | <a href="/terms-of-service">Terms of Service</a></p>
+      </nav>
+      <p>Please enable JavaScript to use Bonda.</p>
+    </div>
+  </noscript>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 

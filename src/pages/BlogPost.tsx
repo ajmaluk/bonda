@@ -102,7 +102,7 @@ export function BlogPost() {
                 >
                     <img
                         src={post.imageUrl}
-                        alt={post.title}
+                        alt={post.imageAlt}
                         style={{
                             width: '100%',
                             height: '100%',

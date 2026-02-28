@@ -65,6 +65,36 @@ export function Home() {
                 "name": "Bonda",
                 "logo": "https://bonda.toolpix.in/icon.png"
             }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "Is my marksheet data safe on Bonda?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Yes. Bonda uses advanced client-side OCR technology. This means your marksheet is processed entirely within your own browser and is never uploaded or stored on our servers."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "How accurate is the AI marksheet roast?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Bonda uses Google Gemini's latest LLM technology to analyze your grades with high precision, providing culturally relevant feedback in both Malayalam and English."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Does Bonda support PDF marksheets?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Yes, Bonda supports both image formats (JPG, PNG, WebP) and PDF documents. Our system extracts text from all popular marksheet formats."
+                    }
+                }
+            ]
         }
     ];
 
@@ -180,7 +210,7 @@ export function Home() {
                     </p>
                 </div>
 
-                <div className="features-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', maxWidth: '1000px', margin: '0 auto', marginBottom: '4rem' }}>
+                <div className="features-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', maxWidth: '1000px', margin: '0 auto', marginBottom: '6rem' }}>
                     <div className="glass-panel" style={{ padding: '2rem', textAlign: 'left' }}>
                         <h3 style={{ color: 'var(--accent-primary)', marginBottom: '1rem', fontSize: '1.3rem' }}>🔥 Brutal AI Roasts</h3>
                         <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6' }}>
@@ -198,6 +228,57 @@ export function Home() {
                         <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6' }}>
                             Experience your feedback in pure, native Malayalam script. No weird Manglish translations—just authentic Kerala humor and support written flawlessly.
                         </p>
+                    </div>
+                </div>
+
+                {/* Step-by-Step How To Guide for SEO Snippets */}
+                <div style={{ maxWidth: '800px', margin: '0 auto 6rem', textAlign: 'left' }}>
+                    <h2 style={{ textAlign: 'center', marginBottom: '3.5rem', fontSize: '2.2rem' }} className="gradient-text">How to Get Your AI Marksheet Roast</h2>
+                    <div style={{ display: 'grid', gap: '2rem' }}>
+                        <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
+                            <div style={{ background: 'var(--accent-primary)', color: 'white', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0, marginTop: '0.2rem' }}>1</div>
+                            <div>
+                                <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>Upload Your Document</h3>
+                                <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6' }}>Select your academic marksheet in PDF, JPG, or PNG format. Bonda uses elite-tier OCR to read your grades locally in the browser.</p>
+                            </div>
+                        </div>
+                        <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
+                            <div style={{ background: 'var(--accent-primary)', color: 'white', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0, marginTop: '0.2rem' }}>2</div>
+                            <div>
+                                <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>Choose Your Vibe (Malayalam/English)</h3>
+                                <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6' }}>Feel like a laugh? Choose 'Troll' for a brutal roast. Need a boost? Select 'Motivation' for encouraging feedback in Malayalam script.</p>
+                            </div>
+                        </div>
+                        <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
+                            <div style={{ background: 'var(--accent-primary)', color: 'white', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0, marginTop: '0.2rem' }}>3</div>
+                            <div>
+                                <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>Share & React</h3>
+                                <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6' }}>Generate your results instantly! Copy the feedback or take a screenshot to share on WhatsApp or Instagram with your friends.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Visible FAQ Section for Ranking */}
+                <div className="faq-section" style={{ maxWidth: '800px', margin: '0 auto 6rem', textAlign: 'left' }}>
+                    <h2 style={{ textAlign: 'center', marginBottom: '3.5rem', fontSize: '2.2rem' }} className="gradient-text">Frequently Asked Questions</h2>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                        <div className="glass-panel" style={{ padding: '1.5rem' }}>
+                            <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem', color: 'var(--accent-primary)' }}>Is my marksheet data safe on Bonda?</h3>
+                            <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>Yes. Bonda uses advanced client-side technology. Your file never leaves your device — it's processed entirely in your browser. We prioritize your academic privacy and data security.</p>
+                        </div>
+                        <div className="glass-panel" style={{ padding: '1.5rem' }}>
+                            <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem', color: 'var(--accent-primary)' }}>How accurate is the AI marksheet analysis?</h3>
+                            <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>We use Google's latest Gemini models to analyze your marks with high precision, providing culturally authentic feedback specifically tuned for Kerala students and global learners.</p>
+                        </div>
+                        <div className="glass-panel" style={{ padding: '1.5rem' }}>
+                            <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem', color: 'var(--accent-primary)' }}>Does it support university marksheets (KTU, Calicut, MG)?</h3>
+                            <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>Yes, Bonda is optimized for Indian university marksheets including KTU, University of Calicut, MG University, and more. Our OCR handles complex table structures with ease.</p>
+                        </div>
+                        <div className="glass-panel" style={{ padding: '1.5rem' }}>
+                            <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem', color: 'var(--accent-primary)' }}>Can I use it for SSLC and Plus Two results?</h3>
+                            <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>Absolutely! Whether it's Kerala SSLC, CBSE Plus Two, or collegiate semester results, simply upload a clear photo or PDF for an instant AI roast or motivational boost.</p>
+                        </div>
                     </div>
                 </div>
             </section>

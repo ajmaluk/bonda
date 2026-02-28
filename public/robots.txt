@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Crawl-delay: 1
+
+Host: https://bonda.toolpix.in
 
 Sitemap: https://bonda.toolpix.in/sitemap.xml

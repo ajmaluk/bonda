@@ -45,6 +45,22 @@
     animation: zoomIn var(--transition-spring) forwards;
 }
 
+.result-card:has(.loading-state) {
+    animation: zoomIn var(--transition-spring) forwards, pulseScale 2s ease-in-out infinite;
+}
+
+@keyframes pulseScale {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+}
+
 .modal-footer {
     margin-top: auto;
     display: flex;
@@ -162,6 +178,23 @@
     letter-spacing: 0.08em;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: badgeBurst 0.6s var(--transition-spring) forwards;
+}
+
+@keyframes badgeBurst {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .motivation .result-badge {
@@ -215,10 +248,12 @@
     font-weight: 400;
 }
 
-/* Make malayalam text slightly larger for better readability */
-.result-body:lang(ml) {
-    font-size: 1.25rem;
-    line-height: 1.85;
+/* Make malayalam text significantly clearer for high-end readability */
+.result-body:lang(ml),
+.result-card.malayalam .final-text {
+    font-size: 1.35rem;
+    line-height: 1.9;
+    letter-spacing: 0.01em;
 }
 
 .toast-notification {

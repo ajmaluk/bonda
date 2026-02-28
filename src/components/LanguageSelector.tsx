@@ -18,16 +18,18 @@ export function LanguageSelector({ selectedLanguage, onSelectLanguage, disabled 
                     className={`option-btn ${selectedLanguage === 'English' ? 'active blue' : ''} ${disabled ? 'disabled' : ''}`}
                     onClick={() => !disabled && onSelectLanguage('English')}
                     disabled={disabled}
+                    aria-pressed={selectedLanguage === 'English'}
                 >
-                    <Globe className="option-icon" />
+                    <Globe className="option-icon" aria-hidden="true" />
                     <span>English</span>
                 </button>
                 <button
                     className={`option-btn ${selectedLanguage === 'Malayalam' ? 'active blue' : ''} ${disabled ? 'disabled' : ''}`}
                     onClick={() => !disabled && onSelectLanguage('Malayalam')}
                     disabled={disabled}
+                    aria-pressed={selectedLanguage === 'Malayalam'}
                 >
-                    <Languages className="option-icon" />
+                    <Languages className="option-icon" aria-hidden="true" />
                     <span>Malayalam</span>
                 </button>
             </div>

@@ -18,17 +18,19 @@ export function ToneSelector({ selectedTone, onSelectTone, disabled }: ToneSelec
                     className={`option-btn ${selectedTone === 'Motivation' ? 'active motivation' : ''} ${disabled ? 'disabled' : ''}`}
                     onClick={() => !disabled && onSelectTone('Motivation')}
                     disabled={disabled}
+                    aria-pressed={selectedTone === 'Motivation'}
                 >
-                    <Heart className="option-icon" />
+                    <Heart className="option-icon" aria-hidden="true" />
                     <span>Motivation</span>
                 </button>
                 <button
                     className={`option-btn ${selectedTone === 'Troll' ? 'active troll' : ''} ${disabled ? 'disabled' : ''}`}
                     onClick={() => !disabled && onSelectTone('Troll')}
                     disabled={disabled}
+                    aria-pressed={selectedTone === 'Troll'}
                 >
-                    <Flame className="option-icon" />
-                    <span>Troll/Roast</span>
+                    <Flame className="option-icon" aria-hidden="true" />
+                    <span>Brutal Roast</span>
                 </button>
             </div>
         </div>

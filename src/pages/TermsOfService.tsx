@@ -30,16 +30,16 @@ export function TermsOfService() {
                 <h1 className="gradient-text page-title">Terms of Service</h1>
 
                 <div className="glass-panel page-card text-block">
-                    <p>Last Updated: {new Date().toLocaleDateString()}</p>
+                    <p>Last Updated: February 28, 2026</p>
 
                     <h2>1. Acceptance of Terms</h2>
                     <p>
-                        By accessing and using Marksheet AI (provided by Uthakkan), you accept and agree to be bound by the terms and provision of this agreement.
+                        By accessing and using Bonda (provided by Uthakkan), you accept and agree to be bound by the terms and provision of this agreement.
                     </p>
 
                     <h2>2. Description of Service</h2>
                     <p>
-                        Marksheet AI provides an AI-powered feedback generator based on uploaded images of marksheets. The service provides simulated "motivation" or "roast" (troll) feedback for entertainment and novel purposes.
+                        Bonda provides an AI-powered feedback generator based on uploaded images of marksheets. The service provides simulated "motivation" or "roast" (troll) feedback for entertainment and novel purposes.
                     </p>
 
                     <h2>3. User Conduct and Responsibilities</h2>

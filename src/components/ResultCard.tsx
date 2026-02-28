@@ -28,8 +28,14 @@ export function ResultCard({ isLoading, loadingStep, result, tone, error, onClos
     }
 
     return createPortal(
-        <div className="modal-overlay animate-fade-in" onClick={!isLoading ? onClose : undefined}>
-            <div className={`result-card glass-panel ${tone.toLowerCase()}`} onClick={(e) => e.stopPropagation()}>
+        <div className="modal-overlay animate-fade-in" onClick={!isLoading ? onClose : undefined} role="presentation">
+            <div
+                className={`result-card glass-panel ${tone.toLowerCase()} ${result && /[\u0D00-\u0D7F]/.test(result) ? 'malayalam' : ''}`}
+                onClick={(e) => e.stopPropagation()}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="result-title"
+            >
                 {isLoading && (
                     <div className="loading-state">
                         <Loader2 className="spinner animate-spin" />
@@ -46,7 +52,7 @@ export function ResultCard({ isLoading, loadingStep, result, tone, error, onClos
                 {!isLoading && result && !error && (
                     <div className="result-content-wrapper">
                         <div className="result-header">
-                            <div className="result-badge">
+                            <div className="result-badge" id="result-title">
                                 <Sparkles size={16} />
                                 <span>AI {tone}</span>
                             </div>
@@ -60,7 +66,16 @@ export function ResultCard({ isLoading, loadingStep, result, tone, error, onClos
                         </div>
 
                         <div className="result-body animate-slide-up" style={{ animationDelay: '0.1s' }}>
-                            <p className="final-text">{result}</p>
+                            {result.split('\n\n').map((paragraph, pIdx) => (
+                                <p key={pIdx} className="final-text">
+                                    {paragraph.split(/(\*\*.*?\*\*)/g).map((part, i) => {
+                                        if (part.startsWith('**') && part.endsWith('**')) {
+                                            return <strong key={i}>{part.slice(2, -2)}</strong>;
+                                        }
+                                        return part;
+                                    })}
+                                </p>
+                            ))}
                         </div>
                     </div>
                 )}

@@ -35,7 +35,7 @@ export function Footer() {
 
             <div className="footer-bottom">
                 <p>&copy; {new Date().getFullYear()} Bonda by Uthakkan. All rights reserved.</p>
-                <p className="powered-by">Powered by Advanced AI & Local OCR.</p>
+                <p className="powered-by">Powered by Google Gemini &amp; Local OCR.</p>
             </div>
         </footer>
     );

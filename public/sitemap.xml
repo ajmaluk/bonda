@@ -2,31 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://bonda.toolpix.in/</loc>
-    <lastmod>2026-02-27T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-28T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://bonda.toolpix.in/blog</loc>
-    <lastmod>2026-02-27T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-28T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bonda.toolpix.in/about</loc>
-    <lastmod>2026-02-27T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bonda.toolpix.in/privacy-policy</loc>
-    <lastmod>2026-02-27T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-28T00:00:00+00:00</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bonda.toolpix.in/terms-of-service</loc>
-    <lastmod>2026-02-27T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-28T00:00:00+00:00</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -50,6 +50,12 @@
   </url>
   <url>
     <loc>https://bonda.toolpix.in/blog/building-bonda-the-journey</loc>
+    <lastmod>2026-02-28T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bonda.toolpix.in/blog/definitive-guide-to-ai-marksheet-roasts</loc>
     <lastmod>2026-02-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

@@ -11,6 +11,7 @@ interface FileUploadProps {
 export function FileUpload({ file, onFileSelect, disabled }: FileUploadProps) {
   const [isDragActive, setIsDragActive] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -51,11 +52,28 @@ export function FileUpload({ file, onFileSelect, disabled }: FileUploadProps) {
   };
 
   const validateAndSetFile = (newFile: File) => {
+    setError(null);
     const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
-    if (validTypes.includes(newFile.type)) {
-      onFileSelect(newFile);
-    } else {
-      alert('Please upload a valid image (JPG, PNG) or PDF file.');
+    const MAX_SIZE = 10 * 1024 * 1024; // 10MB limit
+
+    if (!validTypes.includes(newFile.type)) {
+      setError('Please upload a valid image (JPG, PNG) or PDF file.');
+      return;
+    }
+
+    if (newFile.size > MAX_SIZE) {
+      setError('File is too large. Please upload a file smaller than 10MB.');
+      return;
+    }
+
+    onFileSelect(newFile);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (disabled) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      inputRef.current?.click();
     }
   };
 
@@ -88,14 +106,19 @@ export function FileUpload({ file, onFileSelect, disabled }: FileUploadProps) {
     );
   }
 
-  return (
+  <div className="upload-container w-full">
     <div
-      className={`upload-zone glass-panel ${isDragActive ? 'drag-active' : ''} ${disabled ? 'disabled' : ''}`}
+      className={`upload-zone glass-panel ${isDragActive ? 'drag-active' : ''} ${disabled ? 'disabled' : ''} ${error ? 'has-error' : ''}`}
       onDragEnter={handleDrag}
       onDragLeave={handleDrag}
       onDragOver={handleDrag}
       onDrop={handleDrop}
       onClick={() => !disabled && inputRef.current?.click()}
+      onKeyDown={handleKeyDown}
+      tabIndex={disabled ? -1 : 0}
+      role="button"
+      aria-label="Upload marksheet"
+      aria-disabled={disabled}
     >
       <input
         ref={inputRef}
@@ -115,5 +138,11 @@ export function FileUpload({ file, onFileSelect, disabled }: FileUploadProps) {
         <span className="upload-btn-fake">Browse Files</span>
       </div>
     </div>
-  );
+
+    {error && (
+      <div className="upload-error-msg animate-fade-in" role="alert">
+        {error}
+      </div>
+    )}
+  </div>
 }

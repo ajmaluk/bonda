@@ -6,33 +6,35 @@ import pdfWorkerSrc from 'pdfjs-dist/build/pdf.worker.mjs?url';
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerSrc;
 
 /**
- * Extracts text from an image file using Tesseract.js
+ * Extracts text from an image file using Tesseract.js with explicit worker lifecycle.
  */
 async function extractTextFromImage(file: File, onProgress?: (msg: string) => void): Promise<string> {
     onProgress?.('Initializing Optical Character Recognition...');
-    try {
-        const result = await Tesseract.recognize(
-            file,
-            'eng', // we assume english numbers/text for marksheet extraction
-            {
-                logger: m => {
-                    if (m.status === 'recognizing text') {
-                        onProgress?.(`Scanning marksheet: ${Math.round(m.progress * 100)}%`);
-                    } else if (m.status === 'loading language traineddata') {
-                        onProgress?.(`Loading Language Models: ${Math.round(m.progress * 100)}%`);
-                    } else if (m.status === 'loading tesseract core') {
-                        onProgress?.(`Loading OCR Engine...`);
-                    } else {
-                        // Handle 'initializing api' and 'initializing tesseract'
-                        onProgress?.(`Initializing OCR...`);
-                    }
-                }
+
+    // Explicitly create a worker for memory management
+    const worker = await Tesseract.createWorker('eng', 1, {
+        logger: m => {
+            if (m.status === 'recognizing text') {
+                onProgress?.(`Scanning marksheet: ${Math.round(m.progress * 100)}%`);
+            } else if (m.status === 'loading language traineddata') {
+                onProgress?.(`Loading Language Models: ${Math.round(m.progress * 100)}%`);
+            } else if (m.status === 'loading tesseract core') {
+                onProgress?.(`Loading OCR Engine...`);
+            } else {
+                onProgress?.(`Initializing OCR...`);
             }
-        );
-        return result.data.text;
+        }
+    });
+
+    try {
+        const { data: { text } } = await worker.recognize(file);
+        return text;
     } catch (error) {
         console.error("OCR Image Error:", error);
         throw new Error("Failed to scan image. Please ensure it's a clear marksheet.");
+    } finally {
+        // CRITICAL: Explicitly terminate the worker to free up browser memory instantly
+        await worker.terminate();
     }
 }
 
@@ -71,7 +73,7 @@ async function extractTextFromPDF(file: File, onProgress?: (msg: string) => void
 
         // Get the first page
         const page = await pdf.getPage(1);
-        const viewport = page.getViewport({ scale: 2.0 }); // higher scale for better OCR
+        const viewport = page.getViewport({ scale: 3.0 }); // higher scale (3.0) for elite OCR accuracy
 
         // Prepare canvas using DOM
         const canvas = document.createElement('canvas');

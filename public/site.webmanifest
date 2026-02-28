@@ -1,6 +1,10 @@
 {
-  "name": "Bonda by ToolPix",
+  "name": "Bonda - AI Marksheet Roast & Motivation",
   "short_name": "Bonda",
+  "description": "Upload your marksheet for a brutal AI roast or instant motivation in Malayalam and English.",
+  "start_url": "/",
+  "id": "/",
+  "scope": "/",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -15,7 +19,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#051a11",
+  "background_color": "#051a11",
   "display": "standalone"
 }

@@ -14,27 +14,45 @@ export async function generateFeedback(
     }
 
     const prompt = `
-You are an AI assistant tasked with analyzing a student's marksheet and providing a custom response.
+You are "Bonda AI", an elite, culturally-aware student assistant built by Uthakkan. Your goal is to analyze marksheets and provide feedback that is both highly accurate and incredibly engaging.
 
-Language requested: ${language}
-Tone requested: ${tone}
-
-Here is the raw OCR text extracted from their marksheet. It might be slightly messy:
+### CONTEXT
+- User Language: ${language}
+- Requested Tone: ${tone}
+- Raw OCR Data:
 """
 ${marksheetText}
 """
 
-Instructions:
-1. Analyze the grades/marks to get a general sense of how the student performed (e.g., failing, average, topper).
-2. If Tone is "Motivation", provide an extremely uplifting, supporting, and empowering message. Emphasize that grades don't define them and they have a bright future. Focus on potential.
-3. If Tone is "Troll", utterly roast them. Be sarcastic, funny, and brutal (but keep it playful, not hateful). Make fun of their worst subjects if identifiable.
-4. The ENTIRE output must be in the requested Language (${language}). 
-   - IF Malayalam: You MUST reply in fluent, natural, and grammatically perfect Malayalam native script. 
-   - CRITICAL: DO NOT USE MANGLISH. Do NOT write Malayalam using English (Latin) alphabets. You must ONLY use native Malayalam unicode characters (e.g., നീ, എന്തൊക്കെ, അപ്പോൾ). 
-   - DO NOT use literal or machine-translated phrasing. Ensure the tone is culturally appropriate and uses native Malayalam expressions, idioms, and slang where applicable.
-5. Do NOT include any introductory or meta text like "Here is your response". Just jump straight into the message.
-6. Keep it concise, around 3-4 short paragraphs maximum.
+### CORE INSTRUCTIONS
+1. ANALYZE: Identify the student's status (Topper, Average, failing, or "Just Passed"). Detect specific subjects where they struggled or excelled.
+2. SCRIPT GUARDRAIL (CRITICAL): 
+   - If Language is Malayalam: Use ONLY native Malayalam Unicode script (നമസ്കാരം). 
+   - NEVER use Manglish (English letters for Malayalam). 
+   - Avoid robotic, formal translations. Use natural, spoken Malayalam phrasing.
+3. ENGAGEMENT & STYLE:
+   - Use WhatsApp-style formatting: Use **bold** (via **text**) for emphasis. 
+   - Incorporate relevant emojis to increase emotional resonance.
+   - Keep it concise: 3 short, punchy paragraphs max.
+
+### TONE SPECIFICS
+- If Tone is "Motivation":
+  - Be an aggressively supportive mentor. 
+  - Phrases like "This is just a piece of paper, not your future" or "Better days are coming."
+  - In Malayalam: Use empathetic, brotherly/sisterly tones (e.g., "സാരമില്ലെടാ/സാരമില്ലെടീ").
+- If Tone is "Troll" (Brutal Roast):
+  - Be ruthlessly funny and sarcastic but keep it "friendly-fire" (no hate).
+  - Use localized Kerala humor. Compare low marks to "Bonda price" or "Tea shop bills."
+  - Use campus slang (e.g., "씬", "അലമ്പ്", "പൊളി").
+  - Make fun of the specific gap between aim and reality.
+
+### OUTPUT RULES
+- NO intro like "Here is your roast." Jump straight into the message.
+- If the OCR is totally unreadable: Politely ask for a better photo in ${language}.
 `;
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second safety timeout
 
     try {
         const response = await fetch(API_URL, {
@@ -45,10 +63,19 @@ Instructions:
             body: JSON.stringify({
                 prompt: prompt
             }),
+            signal: controller.signal
         });
 
+        clearTimeout(timeoutId);
+
         if (!response.ok) {
-            throw new Error(`API returned ${response.status}: ${response.statusText}`);
+            if (response.status === 429) {
+                throw new Error("The AI is currently receiving too many requests. Please wait a moment and try again.");
+            }
+            if (response.status >= 500) {
+                throw new Error("The AI service is currently overloaded. Please try again in a few minutes.");
+            }
+            throw new Error(`AI Service Error (${response.status}). Please try again later.`);
         }
 
         const data = await response.json();
@@ -59,6 +86,12 @@ Instructions:
             throw new Error("API failed to generate text.");
         }
     } catch (error: unknown) {
+        clearTimeout(timeoutId);
+
+        if (error instanceof Error && error.name === 'AbortError') {
+            throw new Error("AI request timed out. Please check your connection or try again.");
+        }
+
         console.error("AI Generation Error:", error);
         throw new Error("Failed to connect to the AI service. Please try again later.");
     }
